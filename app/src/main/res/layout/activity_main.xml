@@ -12,12 +12,11 @@
         android:id="@+id/textView6"
         android:layout_width="341dp"
         android:layout_height="40dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="56dp"
         android:text="@string/Titulo"
         android:textColor="#2196F3"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,7 +24,7 @@
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="24dp"
         android:text="@string/iniciosesion"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,56 +35,57 @@
         android:id="@+id/imageView4"
         android:layout_width="200dp"
         android:layout_height="79dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.511"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
         app:srcCompat="@drawable/car" />
 
     <LinearLayout
-        android:layout_width="366dp"
-        android:layout_height="106dp"
+        android:id="@+id/linearLayout4"
+        android:layout_width="320dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="48dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.436">
+        app:layout_constraintTop_toBottomOf="@+id/imageView4">
 
         <EditText
             android:id="@+id/txtUsuario"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="@string/usuario" />
+            android:hint="@string/usuario"
+            android:inputType="textPersonName" />
 
         <EditText
             android:id="@+id/txtContrasenia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword"
-            android:hint="@string/Contraseña" />
+            android:hint="@string/Contraseña"
+            android:inputType="textPassword" />
+
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="188dp"
-        android:layout_height="105dp"
-        android:layout_marginBottom="168dp"
+        android:layout_width="217dp"
+        android:layout_height="122dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="32dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <Button
             android:id="@+id/btnIniciarSesion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#A5A1A1"
+            android:onClick="IniciarSesion"
             android:text="@string/btnIniciarSesion"
             android:textColorHint="#DCDACBCB" />
 
@@ -100,4 +100,5 @@
             android:textColor="#2196F3"
             android:textSize="16sp" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
