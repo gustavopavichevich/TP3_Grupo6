@@ -1,3 +1,10 @@
 <resources>
-    <string name="app_name">Parking control</string>
+    <string name="app_name">Parking Control</string>
+    <string name="Titulo">Bienvenido a Parking System</string>
+    <string name="iniciosesion">Iniciar sesión para empezar</string>
+    <string name="usuario">Nombre de usuario</string>
+    <string name="Contraseña">Contraseña</string>
+    <string name="boton_iniciar">Iniciar Sesión</string>
+    <string name="registrar">Registrarse</string>
+
 </resources>
