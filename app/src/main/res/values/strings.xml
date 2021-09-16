@@ -6,4 +6,8 @@
     <string name="Contraseña">Contraseña</string>
     <string name="btnIniciarSesion">Iniciar Sesión</string>
     <string name="lnkRegistrarse">Registrarse</string>
+    <string name="txtNombre"> Nombre</string>
+    <string name="txtCorreo"> Correo electrónico</string>
+    <string name="txtPass"> Contraseña</string>
+    <string name="txtRePass"> Repetir Contraseña</string>
 </resources>

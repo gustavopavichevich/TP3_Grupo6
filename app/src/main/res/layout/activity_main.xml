@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            android:text="@string/usuario" />
+            android:hint="@string/usuario" />
 
         <EditText
             android:id="@+id/txtContrasenia"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPassword"
-            android:text="@string/Contraseña" />
+            android:hint="@string/Contraseña" />
     </LinearLayout>
 
     <LinearLayout
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#A5A1A1"
-            android:text="@string/boton_iniciar"
+            android:text="@string/btnIniciarSesion"
             android:textColorHint="#DCDACBCB" />
 
         <TextView
@@ -96,7 +96,7 @@
             android:clickable="true"
             android:gravity="center"
             android:onClick="Registrar"
-            android:text="@string/registrar"
+            android:text="@string/lnkRegistrarse"
             android:textColor="#2196F3"
             android:textSize="16sp" />
     </LinearLayout>
