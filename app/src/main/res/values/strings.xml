@@ -4,7 +4,6 @@
     <string name="iniciosesion">Iniciar sesión para empezar</string>
     <string name="usuario">Nombre de usuario</string>
     <string name="Contraseña">Contraseña</string>
-    <string name="boton_iniciar">Iniciar Sesión</string>
-    <string name="registrar">Registrarse</string>
-
+    <string name="btnIniciarSesion">Iniciar Sesión</string>
+    <string name="lnkRegistrarse">Registrarse</string>
 </resources>
