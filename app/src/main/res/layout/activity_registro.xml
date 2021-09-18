@@ -51,11 +51,13 @@
 
 
         <EditText
-            android:id="@+id/etNombre"
+            android:id="@+id/txtNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/txtNombre"
+            android:focusableInTouchMode="false"
+            android:focusedByDefault="false"
+            android:hint="Nombre de usuario"
             android:inputType="textPersonName" />
         <EditText
             android:id="@+id/edEmail"
@@ -70,21 +72,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/txtPass" />
+            android:hint="@string/txtPass"
+            android:inputType="textPassword"
+            android:password="true" />
 
         <EditText
             android:id="@+id/etRepetirContrasenia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/txtRePass" />
+            android:hint="@string/txtRePass"
+            android:inputType="textPassword"
+            android:password="false" />
+
         <Button
             android:id="@+id/btnAceptar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#2196F3"
             android:onClick="Registrar"
-            android:text="Aceptar"
+            android:text="Registrar"
+            app:iconTint="#03A9F4" />
+
+        <Button
+            android:id="@+id/btnCancelar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2196F3"
+            android:onClick="Registrar"
+            android:text="Cancelar"
             app:iconTint="#03A9F4" />
     </LinearLayout>
 

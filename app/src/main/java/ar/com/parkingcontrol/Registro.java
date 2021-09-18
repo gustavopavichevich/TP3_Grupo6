@@ -9,48 +9,48 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import ar.com.parkingcontrol.entity.Usuario;
 
 public class Registro extends AppCompatActivity {
 
     private EditText _nombre, _email, _contrasenia, _recontrasenia;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        _nombre = (EditText)findViewById(R.id.etNombre);
+        _nombre = (EditText)findViewById(R.id.txtNombre);
         _email = (EditText)findViewById(R.id.edEmail);
         _contrasenia = (EditText)findViewById(R.id.etContrasenia);
         _recontrasenia = (EditText)findViewById(R.id.etRepetirContrasenia);
     }
-    //Méotdo para dar de alta al nuevo usuario de la app
+    //Méotdo para dar de alta al nuevo Usuario de la app
     public void Registrar(View view){
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "parkingControl", null, 1);
+        SQLiteDatabase baseDeDatos = admin.getWritableDatabase();
 
-        String nombre = _nombre.getText().toString();
-        String email = _email.getText().toString();
-        String contrasenia = _contrasenia.getText().toString();
-        String recontrasenia = _recontrasenia.getText().toString();
 
-        if(!nombre.isEmpty() && !email.isEmpty() && !contrasenia.isEmpty() && !recontrasenia.isEmpty()){
+        Usuario usuario =new Usuario(_nombre.getText().toString(),_email.getText().toString(),_contrasenia.getText().toString());
+
+        //Valido que no queden campos vacios
+        if(!usuario.getNombre().isEmpty() && !usuario.getEmail().isEmpty() && !usuario.getContrasenia().isEmpty() && !_recontrasenia.getText().toString().isEmpty()){
             //Valido las contraseñas
-            if (contrasenia.equals(recontrasenia)) {
-                //Valido que no existe el email/usuario en la base de datos
-                if (ValidarUsuario(email)){
-                    Toast.makeText(this,"El email ya se encuentra registrado", Toast.LENGTH_SHORT).show();
-                }else {
+            if (usuario.getContrasenia().trim().equals(_recontrasenia.getText().toString().trim())) {
+                //Valido que no existe el email/Usuario en la base de datos
+                if (ValidarUsuario(usuario)) {
+                    Toast.makeText(this, "El usuario ya se encuentra registrado", Toast.LENGTH_SHORT).show();
+                }else
+                {
                     //si no existe inicio para grabar el registro
                     ContentValues registro = new ContentValues();
 
-                    registro.put("nombre", nombre);
-                    registro.put("usuario", email);
-                    registro.put("contrasenia", contrasenia);
+                    registro.put("nombre", usuario.getNombre());
+                    registro.put("Usuario", usuario.getEmail());
+                    registro.put("contrasenia", usuario.getContrasenia());
 
-                    BaseDeDatos.insert("usuarios", null, registro);
+                    baseDeDatos.insert("usuarios", null, registro);
 
-                    BaseDeDatos.close();
+                    baseDeDatos.close();
                     _nombre.setText("");
                     _email.setText("");
                     _contrasenia.setText("");
@@ -65,26 +65,15 @@ public class Registro extends AppCompatActivity {
             Toast.makeText(this, "Debes llenar todos los campos", Toast.LENGTH_SHORT).show();
         }
     }
-    public boolean ValidarUsuario(String usuario){
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+    public boolean ValidarUsuario(Usuario usuario){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "parkingControl", null, 1);
         SQLiteDatabase BaseDeDatabase = admin.getWritableDatabase();
         boolean result = false;
-
-        if(!usuario.isEmpty()){
-            Cursor fila = BaseDeDatabase.rawQuery
-                    ("select usuario from usuarios where usuario ='" + usuario + "'", null);
-
-            if(fila.moveToFirst()){
-                result = true;
-                BaseDeDatabase.close();
-            } else {
-                result = false;
-                BaseDeDatabase.close();
-            }
-
-        } else {
-            Toast.makeText(this, "Debes introducir el email del usuario", Toast.LENGTH_SHORT).show();
-        }
+        Cursor fila = BaseDeDatabase.rawQuery
+                ("select nombre from usuarios where nombre =' " + usuario.getNombre() + "' or email=' " + usuario.getEmail() + "'" , null);
+        if(fila.moveToFirst())
+            result = true;
+        BaseDeDatabase.close();
         return result;
     }
 }
