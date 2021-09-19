@@ -41,25 +41,43 @@ public class Usuario {
         this.email = email;
     }
 
-    public boolean equals(Object anObject) {
-        if (this == anObject) {
-            return true;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Usuario usuario = (Usuario) o;
+        if(nombre == null){
+            if(usuario.nombre != null)
+                return false;
+        }else if(nombre.equals(usuario.nombre)){
+            return false;
         }
-        if (anObject instanceof String) {
-            String anotherString = (String)anObject;
-            int n = value.length;
-            if (n == anotherString.value.length) {
-                char v1[] = value;
-                char v2[] = anotherString.value;
-                int i = 0;
-                while (n-- != 0) {
-                    if (v1[i] != v2[i])
-                        return false;
-                    i++;
-                }
-                return true;
-            }
+        if(email == null){
+            if(usuario.email != null)
+                return false;
+        }else if(email.equals(usuario.email)){
+            return false;
         }
-        return false;
+        if(contrasenia == null){
+            if(usuario.contrasenia != null)
+                return false;
+        }else if(contrasenia.equals(usuario.contrasenia)){
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, contrasenia, email);
+    }
+
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "nombre='" + nombre + '\'' +
+                ", contrasenia='" + contrasenia + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
