@@ -37,12 +37,16 @@ public class MainActivity extends AppCompatActivity {
 
         if(!usuario.isEmpty() && !contrasenia.isEmpty()){
             Cursor fila = BaseDeDatabase.rawQuery
-                    ("select usuario from usuarios where usuario ='" + usuario + "' and contrasenia='" + contrasenia + "'", null);
+                    ("select nombre, usuario from usuarios where usuario ='" + usuario + "' and contrasenia='" + contrasenia + "'", null);
 
             if(fila.moveToFirst()){
                 //aca abro la pantalla del menu "Mi cuenta" y "Parqueos"
-                Toast.makeText(this, "Sesion Exitosa", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "Sesion Exitosa", Toast.LENGTH_SHORT).show();
                 BaseDeDatabase.close();
+                Intent principal = new Intent( this, Principal.class);
+                principal.putExtra("nombre",fila.getString(0));
+                principal.putExtra("email",fila.getString(1));
+                startActivity(principal );
             } else {
                 Toast.makeText(this, "Usuario o Contaseña erroneos", Toast.LENGTH_SHORT).show();
                 BaseDeDatabase.close();
