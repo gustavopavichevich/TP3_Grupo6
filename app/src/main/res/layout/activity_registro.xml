@@ -70,14 +70,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/txtPass" />
+            android:hint="@string/txtPass"
+            android:inputType="textPassword" />  />
 
         <EditText
             android:id="@+id/etRepetirContrasenia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/txtRePass" />
+            android:hint="@string/txtRePass"
+            android:inputType="textPassword" />
         <Button
             android:id="@+id/btnAceptar"
             android:layout_width="match_parent"

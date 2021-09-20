@@ -3,33 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation2"
-    app:startDestination="@id/nav_home">
+    app:startDestination="@id/parqueosFragment">
 
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="ar.com.parkingcontrol.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/nav_gallery"
-        android:name="ar.com.parkingcontrol.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
-
-    <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="ar.com.parkingcontrol.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/parqueosFragment"
         android:name="ar.com.parkingcontrol.ParqueosFragment"
-        android:label="fragment_parqueos"
+        android:label="Parking Control"
         tools:layout="@layout/fragment_parqueos" />
     <fragment
         android:id="@+id/miCuentaFragment2"
         android:name="ar.com.parkingcontrol.MiCuentaFragment"
-        android:label="fragment_mi_cuenta2"
+        android:label="Mi Cuenta"
         tools:layout="@layout/fragment_mi_cuenta2" />
 </navigation>

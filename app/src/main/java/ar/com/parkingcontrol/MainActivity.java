@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     public void Registrar (View view)
     {
         Intent registrar = new Intent( this, Registro.class);
-        startActivity(registrar );
+        startActivity(registrar);
     }
     //Método para el inicio de sesion
     public void IniciarSesion(View view){
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent principal = new Intent( this, Principal.class);
                 principal.putExtra("nombre",fila.getString(0));
                 principal.putExtra("email",fila.getString(1));
-                startActivity(principal );
+                startActivity(principal);
             } else {
                 Toast.makeText(this, "Usuario o Contaseña erroneos", Toast.LENGTH_SHORT).show();
                 BaseDeDatabase.close();

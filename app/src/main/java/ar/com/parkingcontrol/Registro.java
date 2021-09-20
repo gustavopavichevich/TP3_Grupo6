@@ -3,6 +3,7 @@ package ar.com.parkingcontrol;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -57,6 +58,8 @@ public class Registro extends AppCompatActivity {
                     _recontrasenia.setText("");
 
                     Toast.makeText(this,"Registro ingresado exitosamente", Toast.LENGTH_SHORT).show();
+                    Intent mainActivity = new Intent( this, MainActivity.class);
+                    startActivity(mainActivity);
                 }
             } else{
                 Toast.makeText(this, "Las contraseñas no son iguales", Toast.LENGTH_SHORT).show();
@@ -76,14 +79,10 @@ public class Registro extends AppCompatActivity {
 
             if(fila.moveToFirst()){
                 result = true;
-                BaseDeDatabase.close();
-            } else {
-                result = false;
-                BaseDeDatabase.close();
             }
-
+            BaseDeDatabase.close();
         } else {
-            Toast.makeText(this, "Debes introducir el email del usuario", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "El usuario ingresado no existe", Toast.LENGTH_SHORT).show();
         }
         return result;
     }

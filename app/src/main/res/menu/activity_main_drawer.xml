@@ -6,11 +6,11 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/parqueosFragment"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/traffic_cone"
             android:title="@string/menu_parqueos" />
         <item
             android:id="@+id/miCuentaFragment2"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/account"
             android:title="@string/menu_micuenta" />
     </group>
 </menu>
