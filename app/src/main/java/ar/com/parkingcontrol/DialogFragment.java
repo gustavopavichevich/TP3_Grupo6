@@ -8,20 +8,19 @@ import android.view.WindowManager;
 import android.widget.EditText;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 
-public class EditNameDialogFragment extends DialogFragment {
+public class DialogFragment extends androidx.fragment.app.DialogFragment {
 
-    private EditText mEditText;
+    private EditText txtNumeroMatricula;
 
-    public EditNameDialogFragment() {
+    public DialogFragment() {
         // Empty constructor is required for DialogFragment
         // Make sure not to add arguments to the constructor
         // Use `newInstance` instead as shown below
     }
 
-    public static EditNameDialogFragment newInstance(String title) {
-        EditNameDialogFragment frag = new EditNameDialogFragment();
+    public static DialogFragment newInstance(String title) {
+        DialogFragment frag = new DialogFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         frag.setArguments(args);
@@ -39,13 +38,13 @@ public class EditNameDialogFragment extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         // Get field from view
-        mEditText = (EditText) view.findViewById(R.id.txtNumeroMatricula);
+        txtNumeroMatricula = (EditText) view.findViewById(R.id.txtNumeroMatricula);
         // Fetch arguments from bundle and set title
         String title = "Registrar Parqueos";
 //                getArguments().getString("title", "Enter Name");
         getDialog().setTitle(title);
         // Show soft keyboard automatically and request focus to field
-        mEditText.requestFocus();
+        txtNumeroMatricula.requestFocus();
         getDialog().getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }

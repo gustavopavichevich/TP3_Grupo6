@@ -17,6 +17,7 @@
             android:text="Parqueos" />
 
         <GridView
+            android:id="@+id/gvParqueos"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>

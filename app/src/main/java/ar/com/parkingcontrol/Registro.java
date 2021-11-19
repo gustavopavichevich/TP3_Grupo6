@@ -1,7 +1,5 @@
 package ar.com.parkingcontrol;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -10,6 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+
+import ar.com.parkingcontrol.Entidades.Parqueo;
 
 public class Registro extends AppCompatActivity {
 
@@ -20,13 +24,14 @@ public class Registro extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registro);
 
-        _nombre = (EditText)findViewById(R.id.etNombre);
-        _email = (EditText)findViewById(R.id.edEmail);
-        _contrasenia = (EditText)findViewById(R.id.etContrasenia);
-        _recontrasenia = (EditText)findViewById(R.id.etRepetirContrasenia);
+        _nombre = (EditText) findViewById(R.id.etNombre);
+        _email = (EditText) findViewById(R.id.edEmail);
+        _contrasenia = (EditText) findViewById(R.id.etContrasenia);
+        _recontrasenia = (EditText) findViewById(R.id.etRepetirContrasenia);
     }
+
     //Méotdo para dar de alta al nuevo usuario de la app
-    public void Registrar(View view){
+    public void Registrar(View view) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
 
@@ -35,13 +40,13 @@ public class Registro extends AppCompatActivity {
         String contrasenia = _contrasenia.getText().toString();
         String recontrasenia = _recontrasenia.getText().toString();
 
-        if(!nombre.isEmpty() && !email.isEmpty() && !contrasenia.isEmpty() && !recontrasenia.isEmpty()){
+        if (!nombre.isEmpty() && !email.isEmpty() && !contrasenia.isEmpty() && !recontrasenia.isEmpty()) {
             //Valido las contraseñas
             if (contrasenia.equals(recontrasenia)) {
                 //Valido que no existe el email/usuario en la base de datos
-                if (ValidarUsuario(email)){
-                    Toast.makeText(this,"El email ya se encuentra registrado", Toast.LENGTH_SHORT).show();
-                }else {
+                if (ValidarUsuario(email)) {
+                    Toast.makeText(this, "El email ya se encuentra registrado", Toast.LENGTH_SHORT).show();
+                } else {
                     //si no existe inicio para grabar el registro
                     ContentValues registro = new ContentValues();
 
@@ -57,27 +62,28 @@ public class Registro extends AppCompatActivity {
                     _contrasenia.setText("");
                     _recontrasenia.setText("");
 
-                    Toast.makeText(this,"Registro ingresado exitosamente", Toast.LENGTH_SHORT).show();
-                    Intent mainActivity = new Intent( this, MainActivity.class);
+                    Toast.makeText(this, "Registro ingresado exitosamente", Toast.LENGTH_SHORT).show();
+                    Intent mainActivity = new Intent(this, MainActivity.class);
                     startActivity(mainActivity);
                 }
-            } else{
+            } else {
                 Toast.makeText(this, "Las contraseñas no son iguales", Toast.LENGTH_SHORT).show();
             }
-        } else{
+        } else {
             Toast.makeText(this, "Debes llenar todos los campos", Toast.LENGTH_SHORT).show();
         }
     }
-    public boolean ValidarUsuario(String usuario){
+
+    public boolean ValidarUsuario(String usuario) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase BaseDeDatabase = admin.getWritableDatabase();
         boolean result = false;
 
-        if(!usuario.isEmpty()){
+        if (!usuario.isEmpty()) {
             Cursor fila = BaseDeDatabase.rawQuery
                     ("select usuario from usuarios where usuario ='" + usuario + "'", null);
 
-            if(fila.moveToFirst()){
+            if (fila.moveToFirst()) {
                 result = true;
             }
             BaseDeDatabase.close();
@@ -86,4 +92,5 @@ public class Registro extends AppCompatActivity {
         }
         return result;
     }
+
 }

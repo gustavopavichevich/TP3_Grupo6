@@ -3,10 +3,7 @@ package ar.com.parkingcontrol;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.fragment.app.FragmentManager;
@@ -61,8 +58,8 @@ public class Principal extends AppCompatActivity {
     }
     private void showEditDialog() {
         FragmentManager fm = getSupportFragmentManager();
-        EditNameDialogFragment editNameDialogFragment = EditNameDialogFragment.newInstance("Some Title");
-        editNameDialogFragment.show(fm, "dialog_design");
+        DialogFragment dialogFragment = DialogFragment.newInstance("Some Title");
+        dialogFragment.show(fm, "dialog_design");
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

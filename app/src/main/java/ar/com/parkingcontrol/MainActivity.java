@@ -6,16 +6,23 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
+import ar.com.parkingcontrol.Entidades.Parqueo;
+
 public class MainActivity extends AppCompatActivity {
     private EditText _usuario, _contrasenia, txtNumeroMatricula, txtTiempo;
     private TextView tvUsuario;
-
+    private ArrayList<Parqueo> listaParqueos = new ArrayList<Parqueo>();;
+private GridView gvParquos;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
 
         _usuario = (EditText) findViewById(R.id.txtUsuario);
         _contrasenia = (EditText) findViewById(R.id.txtContrasenia);
+
+        gvParquos = (GridView) findViewById(R.id.gvParqueos);
+
+        ArrayAdapter<Parqueo> adapter = new ArrayAdapter<Parqueo>(this, android.R.layout.simple_list_item_1, listaParqueos);
+        gvParquos.setAdapter(adapter);
     }
 
     public void Registrar(View view) {
@@ -62,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void OnClicBtnAceptarDialog(View view) {
+    public void OnClickBtnAceptarDialog(View view) {
         txtNumeroMatricula = (EditText) view.findViewById(R.id.txtNumeroMatricula);
         String matricula = txtNumeroMatricula.getText().toString();
         txtTiempo = (EditText) view.findViewById(R.id.txtTiempo);
@@ -78,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
 
         ContentValues registro = new ContentValues();
 
-
         registro.put("usuario", usuario);
         registro.put("matricula", matricula);
         registro.put("tiempo", tiempo);
@@ -86,10 +97,30 @@ public class MainActivity extends AppCompatActivity {
         BaseDeDatos.insert("parqueos", null, registro);
 
         BaseDeDatos.close();
-
+        Toast.makeText(this,"Parqueo grabado exitosamente", Toast.LENGTH_LONG).show();
+        Intent mainActivity = new Intent( this, MainActivity.class);
+        startActivity(mainActivity);
     }
 
     public void OnClicBtnCancelarDialog(View view) {
-        this.finish();
+        return;
+    }
+    public ArrayList<Parqueo> regargarParqueos() {
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        SQLiteDatabase BaseDeDatabase = admin.getReadableDatabase();
+        Cursor cursor = null;
+        cursor = BaseDeDatabase.rawQuery("select * from parqueos", null);
+        if(cursor.moveToFirst()) {
+            do {
+                Parqueo parqueo = new Parqueo();
+                parqueo.setUsuario(cursor.getString(0));
+                parqueo.setMatricula(cursor.getString(1));
+                parqueo.setTiempo(cursor.getString(2));
+                listaParqueos.add(parqueo);
+            }
+            while (cursor.moveToNext());
+        }
+        BaseDeDatabase.close();
+        return listaParqueos;
     }
 }
