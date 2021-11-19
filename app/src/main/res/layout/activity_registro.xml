@@ -13,7 +13,9 @@
         android:layout_marginTop="150dp"
         android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="31dp">
+        tools:layout_editor_absoluteX="31dp"
+        tools:ignore="MissingConstraints">
+        <!--        sugerencia del ide el ignore-->
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -27,7 +29,7 @@
                 android:src="@drawable/user2" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/tvEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
