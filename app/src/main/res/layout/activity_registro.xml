@@ -87,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#2196F3"
-            android:onClick="Registrar"
+            android:onClick="registrar"
             android:text="Aceptar"
             app:iconTint="#03A9F4" />
     </LinearLayout>

@@ -32,7 +32,7 @@
         android:fontFamily="sans-serif"
         android:hint="Tiempo" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -41,13 +41,14 @@
             android:id="@+id/btnAceptarParqueo"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:onClick="onClickBtnAceptarDialog"
             android:text="Aceptar" />
 
         <Button
-            android:onClick="OnClicBtnCancelarDialog"
             android:id="@+id/btnCancelarParqueo"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
+            android:onClick="onClicBtnCancelarDialog"
             android:text="Cancelar" />
     </LinearLayout>
 </LinearLayout>

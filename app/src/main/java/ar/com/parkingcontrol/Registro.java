@@ -11,10 +11,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
-import ar.com.parkingcontrol.Entidades.Parqueo;
-
 public class Registro extends AppCompatActivity {
 
     private EditText _nombre, _email, _contrasenia, _recontrasenia;
@@ -31,7 +27,7 @@ public class Registro extends AppCompatActivity {
     }
 
     //Méotdo para dar de alta al nuevo usuario de la app
-    public void Registrar(View view) {
+    public void registrar(View view) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
 
@@ -44,7 +40,7 @@ public class Registro extends AppCompatActivity {
             //Valido las contraseñas
             if (contrasenia.equals(recontrasenia)) {
                 //Valido que no existe el email/usuario en la base de datos
-                if (ValidarUsuario(email)) {
+                if (validarUsuario(email)) {
                     Toast.makeText(this, "El email ya se encuentra registrado", Toast.LENGTH_SHORT).show();
                 } else {
                     //si no existe inicio para grabar el registro
@@ -74,7 +70,7 @@ public class Registro extends AppCompatActivity {
         }
     }
 
-    public boolean ValidarUsuario(String usuario) {
+    public boolean validarUsuario(String usuario) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase BaseDeDatabase = admin.getWritableDatabase();
         boolean result = false;

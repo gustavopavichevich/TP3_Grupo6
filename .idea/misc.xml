@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/GitHub/facultad/Parkingcontrol/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/GitHub/facultad/TP3_Grupo6/app/src/main/res/drawable/account.xml" value="0.21927083333333333" />
+        <entry key="..\:/GitHub/facultad/TP3_Grupo6/app/src/main/res/drawable/side_nav_bar.xml" value="0.2234375" />
         <entry key="..\:/GitHub/facultad/TP3_Grupo6/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/GitHub/facultad/TP3_Grupo6/app/src/main/res/layout/activity_principal.xml" value="0.22" />
         <entry key="..\:/GitHub/facultad/TP3_Grupo6/app/src/main/res/layout/activity_registro.xml" value="0.13368983957219252" />
@@ -21,6 +23,7 @@
         <entry key="..\:/GitHub/facultad/TP3_Grupo6/app/src/main/res/layout/simple_list_item_1.xml" value="0.20520833333333333" />
         <entry key="..\:/GitHub/facultad/TP3_Grupo6/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/GitHub/facultad/TP3_Grupo6/app/src/main/res/menu/principal.xml" value="0.20416666666666666" />
+        <entry key="..\:/GitHub/facultad/TP3_Grupo6/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/gmam_/AndroidStudioProjects/TP3_Grupo6/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/gmam_/AndroidStudioProjects/TP3_Grupo6/app/src/main/res/layout/activity_registro.xml" value="0.25885416666666666" />
         <entry key="..\:/Users/gmam_/AndroidStudioProjects/TP3_Grupo6/app/src/main/res/layout/content_principal.xml" value="0.36666666666666664" />

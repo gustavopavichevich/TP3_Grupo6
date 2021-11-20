@@ -1,6 +1,5 @@
 package ar.com.parkingcontrol;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -21,34 +20,37 @@ import ar.com.parkingcontrol.Entidades.Parqueo;
 public class MainActivity extends AppCompatActivity {
     private EditText _usuario, _contrasenia, txtNumeroMatricula, txtTiempo;
     private TextView tvUsuario;
-    private ArrayList<Parqueo> listaParqueos = new ArrayList<Parqueo>();;
-private GridView gvParquos;
+    private final ArrayList<Parqueo> listaParqueos = new ArrayList<Parqueo>();
+    private GridView gvParquos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        _usuario = (EditText) findViewById(R.id.txtUsuario);
-        _contrasenia = (EditText) findViewById(R.id.txtContrasenia);
+        _usuario = findViewById(R.id.txtUsuario);
+        _contrasenia = findViewById(R.id.txtContrasenia);
 
-        gvParquos = (GridView) findViewById(R.id.gvParqueos);
+//        gvParquos = findViewById(R.id.gvParqueos);
 
-        ArrayAdapter<Parqueo> adapter = new ArrayAdapter<Parqueo>(this, android.R.layout.simple_list_item_1, listaParqueos);
-        gvParquos.setAdapter(adapter);
+//        recargarParqueos();
+
     }
 
-    public void Registrar(View view) {
+    public void registrar(View view) {
         Intent registrar = new Intent(this, Registro.class);
         startActivity(registrar);
     }
 
     //Método para el inicio de sesion
-    public void IniciarSesion(View view) {
+    public void iniciarSesion(View view) {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase BaseDeDatabase = admin.getWritableDatabase();
 
         String usuario = _usuario.getText().toString();
         String contrasenia = _contrasenia.getText().toString();
+        usuario = "gp@gmail.com";
+        contrasenia = "123";
 
         boolean result = false;
 
@@ -61,8 +63,11 @@ private GridView gvParquos;
                 //Toast.makeText(this, "Sesion Exitosa", Toast.LENGTH_SHORT).show();
                 BaseDeDatabase.close();
                 Intent principal = new Intent(this, Principal.class);
-                principal.putExtra("nombre", fila.getString(0));
-                principal.putExtra("email", fila.getString(1));
+                principal.putExtra("usuario", usuario);
+//                TextView tvUsuario = (TextView) .findViewById(R.id.tvUsuario);
+//                TextView tvEmail = (TextView) view.findViewById(R.id.tvUsuario);
+//                tvUsuario.setText(usuario);
+//                tvEmail.setText(usuario.split("@")[0]+"@parking.com");
                 startActivity(principal);
             } else {
                 Toast.makeText(this, "Usuario o Contaseña erroneos", Toast.LENGTH_SHORT).show();
@@ -74,43 +79,22 @@ private GridView gvParquos;
         }
     }
 
-    public void OnClickBtnAceptarDialog(View view) {
-        txtNumeroMatricula = (EditText) view.findViewById(R.id.txtNumeroMatricula);
-        String matricula = txtNumeroMatricula.getText().toString();
-        txtTiempo = (EditText) view.findViewById(R.id.txtTiempo);
-        String tiempo = txtTiempo.getText().toString();
-        tvUsuario = (TextView) view.findViewById(R.id.tvUsuario);
-        String usuario = tvUsuario.getText().toString();
-        if (matricula.isEmpty() || tiempo.isEmpty()) {
-            Toast.makeText(this, "Por favor, ingrese todos los campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
+    public void onClickBtnAceptarDialog(View view) {
 
-        ContentValues registro = new ContentValues();
+    }
 
-        registro.put("usuario", usuario);
-        registro.put("matricula", matricula);
-        registro.put("tiempo", tiempo);
-
-        BaseDeDatos.insert("parqueos", null, registro);
-
-        BaseDeDatos.close();
-        Toast.makeText(this,"Parqueo grabado exitosamente", Toast.LENGTH_LONG).show();
-        Intent mainActivity = new Intent( this, MainActivity.class);
+    public void onClicBtnCancelarDialog(View view) {
+        Intent mainActivity = new Intent(this, MainActivity.class);
         startActivity(mainActivity);
     }
 
-    public void OnClicBtnCancelarDialog(View view) {
-        return;
-    }
-    public ArrayList<Parqueo> regargarParqueos() {
+    public void recargarParqueos() {
         AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
         SQLiteDatabase BaseDeDatabase = admin.getReadableDatabase();
         Cursor cursor = null;
+        listaParqueos.clear();
         cursor = BaseDeDatabase.rawQuery("select * from parqueos", null);
-        if(cursor.moveToFirst()) {
+        if (cursor.moveToFirst()) {
             do {
                 Parqueo parqueo = new Parqueo();
                 parqueo.setUsuario(cursor.getString(0));
@@ -121,6 +105,7 @@ private GridView gvParquos;
             while (cursor.moveToNext());
         }
         BaseDeDatabase.close();
-        return listaParqueos;
+        ArrayAdapter<Parqueo> adapter = new ArrayAdapter<Parqueo>(this, android.R.layout.simple_list_item_1, listaParqueos);
+        gvParquos.setAdapter(adapter);
     }
 }

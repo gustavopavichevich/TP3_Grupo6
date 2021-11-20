@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#A5A1A1"
-            android:onClick="IniciarSesion"
+            android:onClick="iniciarSesion"
             android:text="@string/btnIniciarSesion"
             android:textColorHint="#DCDACBCB" />
 
@@ -95,7 +95,7 @@
             android:layout_height="40dp"
             android:clickable="true"
             android:gravity="center"
-            android:onClick="Registrar"
+            android:onClick="registrar"
             android:text="@string/lnkRegistrarse"
             android:textColor="#2196F3"
             android:textSize="16sp" />
