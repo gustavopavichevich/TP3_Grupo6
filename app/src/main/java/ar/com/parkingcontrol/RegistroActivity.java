@@ -43,8 +43,8 @@ public class RegistroActivity extends AppCompatActivity {
                 if (validarUsuario(nombre, email)) {
                     Usuario newUser = UsuarioDao.crearNuevoUsuario(new Usuario(
                             nombre,
-                            email,
-                            contrasenia
+                            contrasenia,
+                            email
                     ), this);
 
                     this.etNombre.setText("");
