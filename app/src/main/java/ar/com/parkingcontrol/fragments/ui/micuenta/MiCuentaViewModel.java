@@ -4,31 +4,34 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.pa2_tp3_grupo3.Usuario;
+import ar.com.parkingcontrol.model.entity.Usuario;
 
 public class MiCuentaViewModel extends ViewModel {
 
     private Usuario user;
 
-    public MiCuentaViewModel() { }
+    public MiCuentaViewModel() {
+    }
 
     public LiveData<String> getNombre() {
         MutableLiveData<String> nombre = new MutableLiveData<>();
         nombre.setValue(user.getNombreUsuario());
         return nombre;
     }
+
     public LiveData<String> getEmail() {
         MutableLiveData<String> email = new MutableLiveData<>();
         email.setValue(user.getEmail());
         return email;
     }
+
     public LiveData<String> getPass() {
         MutableLiveData<String> pass = new MutableLiveData<>();
         pass.setValue(user.getPassword());
         return pass;
     }
 
-    public void setUser(Usuario user){
+    public void setUser(Usuario user) {
         this.user = user;
     }
 }

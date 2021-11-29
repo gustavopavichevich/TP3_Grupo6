@@ -6,61 +6,56 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import java.util.ArrayList;
 
-import ar.com.parkingcontrol.MainActivity;
+import ar.com.parkingcontrol.PrincipalActivity;
 import ar.com.parkingcontrol.databinding.FragmentHomeBinding;
-import ar.com.parkingcontrol.fragments.DialogoParqueosFragment;
+import ar.com.parkingcontrol.fragments.ui.dialogs.EliminarDialog;
+import ar.com.parkingcontrol.fragments.ui.dialogs.ParqueosDialog;
 import ar.com.parkingcontrol.model.dao.ParqueoDao;
 import ar.com.parkingcontrol.model.entity.Parqueo;
 
-public class HomeFragment extends Fragment implements DialogoParqueosFragment.DialogFragmentListener, EliminarDialog.EliminarDialogListener {
+public class HomeFragment extends Fragment implements ParqueosDialog.DialogFragmentListener, EliminarDialog.EliminarDialogListener {
     private HomeViewModel homeViewModel;
-    private AppBarConfiguration mAppBarConfiguration;
     private FragmentHomeBinding binding;
-    private EditText txtNumeroMatricula, txtTiempo;
-    private TextView tvUsuario;
-    private MainActivity main;
+    private PrincipalActivity main;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        main = (MainActivity)getActivity();
+        main = (PrincipalActivity) getActivity();
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        DialogoParqueosFragment.DialogFragmentListener list = this;
+        ParqueosDialog.DialogFragmentListener list = this;
         //Agregamos el listener en el boton de agregar para que abra el
         //dialogo de agregar parqueo
-        binding.fabMenuMas.setOnClickListener(new View.OnClickListener() {
+        binding.fab.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                DialogFragment dialog = new DialogFragment();
+                ParqueosDialog dialog = new ParqueosDialog();
                 dialog.setListener(list);
                 dialog.setIdParqueo(null);
-                dialog.setUser(tvUsuario.getText().toString());
+                dialog.setUser(main.getUsuario());
                 dialog.show(getActivity().getSupportFragmentManager(), null);
             }
         });
         cargarMatriculas();
-        return view;
+        return root;
     }
 
     private void cargarMatriculas() {
-        ArrayList<Parqueo> parqueos = ParqueoDao.obtenerParqueosPorIdUsuario(main.getUser().getId(), getActivity());
+        ArrayList<Parqueo> parqueos = ParqueoDao.obtenerParqueosPorIdUsuario(main.getUsuario().getId(), getActivity());
 
         TableLayout table = binding.TableMatriculas;
         if (!parqueos.isEmpty()) {

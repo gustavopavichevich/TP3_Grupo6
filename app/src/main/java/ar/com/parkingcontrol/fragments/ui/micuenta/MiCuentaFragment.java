@@ -12,19 +12,19 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.pa2_tp3_grupo3.InicioUsuarioActivity;
-import com.example.pa2_tp3_grupo3.databinding.FragmentMicuentaBinding;
+import ar.com.parkingcontrol.PrincipalActivity;
+import ar.com.parkingcontrol.databinding.FragmentMicuentaBinding;
 
 public class MiCuentaFragment extends Fragment  {
 
     private MiCuentaViewModel miCuentaViewModel;
     private FragmentMicuentaBinding binding;
-    private InicioUsuarioActivity main;
+    private PrincipalActivity main;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        main = (InicioUsuarioActivity)getActivity();
+        main = (PrincipalActivity)getActivity();
         miCuentaViewModel = new ViewModelProvider(this).get(MiCuentaViewModel.class);
-        miCuentaViewModel.setUser(main.getUser());
+        miCuentaViewModel.setUser(main.getUsuario());
         binding = FragmentMicuentaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 

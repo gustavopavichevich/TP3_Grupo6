@@ -10,15 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ParkingControl">
         <activity
-            android:name=".fragments.ui.PrincipalFragment"
+            android:name=".PrincipalActivity"
             android:exported="true"
             android:label="@string/title_activity_principal"
             android:theme="@style/Theme.ParkingControl.NoActionBar" />
         <activity
-            android:name=".Registro"
+            android:name=".RegistroActivity"
             android:exported="true" />
         <activity
-            android:name=".fragments.ui.MainActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

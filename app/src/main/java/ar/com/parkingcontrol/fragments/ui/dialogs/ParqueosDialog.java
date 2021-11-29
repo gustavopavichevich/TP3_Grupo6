@@ -1,4 +1,4 @@
-package ar.com.parkingcontrol.fragments;
+package ar.com.parkingcontrol.fragments.ui.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -19,9 +19,9 @@ import ar.com.parkingcontrol.R;
 import ar.com.parkingcontrol.model.entity.Parqueo;
 import ar.com.parkingcontrol.model.entity.Usuario;
 
-public class DialogoParqueosFragment extends AppCompatDialogFragment {
-    private EditText matricula;
-    private EditText tiempo;
+public class ParqueosDialog extends AppCompatDialogFragment {
+    private EditText etMatricula;
+    private EditText etTiempo;
     private Usuario usuario;
     private Parqueo parqueo;
     private TextView tvUsuario;
@@ -33,7 +33,7 @@ public class DialogoParqueosFragment extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_design, null);
+        View view = inflater.inflate(R.layout.parqueo_dialog, null);
         //Construimos la vista del dialog y agregamos las dos acciones.
         builder.setView(view)
                 .setTitle("Registrar Parqueo")
@@ -45,8 +45,8 @@ public class DialogoParqueosFragment extends AppCompatDialogFragment {
                 })
                 .setPositiveButton("Registrar Parqueo", null); //Seteamos el listener en null para poder validar sin cerrar el dialogo
         tvUsuario = view.findViewById(R.id.tvUsuario);
-        matricula = view.findViewById(R.id.txtNumeroMatricula);
-        tiempo = view.findViewById(R.id.txtTiempo);
+        etMatricula = view.findViewById(R.id.txtNumeroMatricula);
+        etTiempo = view.findViewById(R.id.txtTiempo);
 
         Dialog d = builder.create();
 
@@ -59,16 +59,14 @@ public class DialogoParqueosFragment extends AppCompatDialogFragment {
 
                     @Override
                     public void onClick(View view) {
-                        String usuario = tvUsuario.getText().toString();
-                        String mat = matricula.getText().toString();
-                        String time = tiempo.getText().toString();
+                        String mat = etMatricula.getText().toString();
+                        String time = etTiempo.getText().toString();
                         //Si hace click en registrar, validamos los campos y agregamos el parqueo
                         if (mat.isEmpty() || time.isEmpty()) {
                             Toast.makeText(getActivity(), "Por favor, ingrese todos los campos", Toast.LENGTH_SHORT).show();
                             return;
                         } else {
-                            Parqueo p = new Parqueo(mat, time, usuario);
-                            listener.salvarParqueo(p);
+                            listener.salvarParqueo(idParqueo, mat, time, usuario.getId());
                             d.dismiss();
                         }
                     }
@@ -111,21 +109,21 @@ public class DialogoParqueosFragment extends AppCompatDialogFragment {
 
     //Esta interface nos sirve para hacer llegar los datos del parque al Fragment que inicio el dialog
     public interface DialogFragmentListener {
-        void salvarParqueo(Parqueo p );
+        void salvarParqueo(Integer id,String matricula, String tiempo, Integer idUsuario);
     }
 
 //    private EditText txtNumeroMatricula, txtTiempo;
 //    private TextView tvUsuario;
 //    private Button btnAceptarParqueo;
 //
-//    public DialogoParqueosFragment() {
-//        // Empty constructor is required for DialogoParqueosFragment
+//    public ParqueosDialog() {
+//        // Empty constructor is required for ParqueosDialog
 //        // Make sure not to add arguments to the constructor
 //        // Use `newInstance` instead as shown below
 //    }
 //
-//    public static DialogoParqueosFragment newInstance(String title) {
-//        DialogoParqueosFragment frag = new DialogoParqueosFragment();
+//    public static ParqueosDialog newInstance(String title) {
+//        ParqueosDialog frag = new ParqueosDialog();
 //        Bundle args = new Bundle();
 //        args.putString("title", title);
 //        frag.setArguments(args);

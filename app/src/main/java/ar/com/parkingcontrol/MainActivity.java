@@ -1,82 +1,58 @@
 package ar.com.parkingcontrol;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.ArrayList;
-
-import ar.com.parkingcontrol.model.dataBase.AdminSQLiteOpenHelper;
-import ar.com.parkingcontrol.model.entity.Parqueo;
+import ar.com.parkingcontrol.model.dao.UsuarioDao;
+import ar.com.parkingcontrol.model.entity.Usuario;
 
 public class MainActivity extends AppCompatActivity {
-    private EditText _usuario, _contrasenia, txtNumeroMatricula, txtTiempo;
-    private TextView tvUsuario;
-    private final ArrayList<Parqueo> listaParqueos = new ArrayList<Parqueo>();
-    private GridView gvParquos;
+    private EditText etUsuario, etContrasenia;
+    private String usuario, contrasenia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        _usuario = findViewById(R.id.txtUsuario);
-        _contrasenia = findViewById(R.id.txtContrasenia);
-
-//        gvParquos = findViewById(R.id.gvParqueos);
-
-//        recargarParqueos();
-
+        etUsuario = findViewById(R.id.txtUsuario);
+        etContrasenia = findViewById(R.id.txtContrasenia);
     }
 
     public void registrar(View view) {
-        Intent registrar = new Intent(this, Registro.class);
+        Intent registrar = new Intent(this, RegistroActivity.class);
         startActivity(registrar);
     }
 
     //Método para el inicio de sesion
     public void iniciarSesion(View view) {
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase BaseDeDatabase = admin.getWritableDatabase();
-
-        String usuario = _usuario.getText().toString();
-        String contrasenia = _contrasenia.getText().toString();
-        /*usuario = "gp@gmail.com";
-        contrasenia = "123";*/
-
-        boolean result = false;
+        usuario = this.etUsuario.getText().toString();
+        contrasenia = this.etContrasenia.getText().toString();
 
         if (!usuario.isEmpty() && !contrasenia.isEmpty()) {
-            Cursor fila = BaseDeDatabase.rawQuery
-                    ("select nombre, usuario from usuarios where usuario ='" + usuario + "' and contrasenia='" + contrasenia + "'", null);
+            Usuario user = UsuarioDao.obtenerUsuarioPorNombreDeUsuario(usuario, this);
+            if (user != null) {
+                if (user.getPassword().equals(contrasenia)) {
 
-            if (fila.moveToFirst()) {
-                //aca abro la pantalla del menu "Mi cuenta" y "Parqueos"
-                //Toast.makeText(this, "Sesion Exitosa", Toast.LENGTH_SHORT).show();
-                BaseDeDatabase.close();
-                Intent principal = new Intent(this, PrincipalActivity.class);
-                principal.putExtra("usuario", usuario);
-//                TextView tvUsuario = (TextView) .findViewById(R.id.tvUsuario);
-//                TextView tvEmail = (TextView) view.findViewById(R.id.tvUsuario);
-//                tvUsuario.setText(usuario);
-//                tvEmail.setText(usuario.split("@")[0]+"@parking.com");
-                startActivity(principal);
+                    Intent principal = new Intent(this, PrincipalActivity.class);
+                    principal.putExtra("usuario", usuario);
+
+                    startActivity(principal);
+
+                } else {
+                    Toast.makeText(this, "Corrobore los datos ingresados", Toast.LENGTH_LONG).show();
+                }
             } else {
-                Toast.makeText(this, "Usuario o Contaseña erroneos", Toast.LENGTH_SHORT).show();
-                BaseDeDatabase.close();
+                Toast.makeText(this, "El usuario no existe", Toast.LENGTH_LONG).show();
             }
 
         } else {
-            Toast.makeText(this, "Debes introducir los datos, son obligatorios", Toast.LENGTH_SHORT).show();
-        }
+        Toast.makeText(this, "Corrobore los datos ingresados", Toast.LENGTH_LONG).show();
     }
-
+    }
 }

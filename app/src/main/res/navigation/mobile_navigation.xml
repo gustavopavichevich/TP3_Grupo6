@@ -11,7 +11,7 @@
         android:label="Parking Control"
         tools:layout="@layout/fragment_parqueos" />
     <fragment
-        android:id="@+id/miCuentaFragment2"
+        android:id="@+id/miCuentaFragment"
         android:name="ar.com.parkingcontrol.fragments.ui.micuenta.MiCuentaFragment"
         android:label="Mi Cuenta"
         tools:layout="@layout/fragment_micuenta" />

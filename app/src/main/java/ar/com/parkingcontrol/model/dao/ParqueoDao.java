@@ -12,14 +12,14 @@ import ar.com.parkingcontrol.model.entity.Parqueo;
 
 public class ParqueoDao {
 
-    private static final String DATABASE = "APPDATABASE";
+    private static final String DATABASE = "parkingControl";
     private static final String TABLE = "parqueos";
 
     public static ArrayList<Parqueo> obtenerParqueosPorIdUsuario(Integer idUsuario, Context contexto) {
         SQLiteDatabase db = null;
         try {
             //Abrimos la conexion
-            AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+            AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(contexto, DATABASE, null, 1);
             db = admin.getWritableDatabase();
 
             //Obtenemos los resultados de la query

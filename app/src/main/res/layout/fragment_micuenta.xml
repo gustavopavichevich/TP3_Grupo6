@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.micuenta.MiCuentaFragment">
+    tools:context="fragments.ui.micuenta.MiCuentaFragment">
 
     <LinearLayout
         android:layout_width="0dp"
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:padding="5sp"
-                android:text="@string/email"
+                android:text="email"
                 android:textStyle="bold" />
 
             <TextView
@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:padding="5sp"
-                android:text="@string/nPass"
+                android:text="pass"
                 android:textStyle="bold" />
 
             <TextView

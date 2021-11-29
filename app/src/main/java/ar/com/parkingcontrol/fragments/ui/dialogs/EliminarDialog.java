@@ -1,4 +1,4 @@
-package ar.com.parkingcontrol.fragments;
+package ar.com.parkingcontrol.fragments.ui.dialogs;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
