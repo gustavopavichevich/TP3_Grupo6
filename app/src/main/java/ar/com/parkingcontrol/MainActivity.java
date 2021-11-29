@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 if (user.getPassword().equals(contrasenia)) {
 
                     Intent principal = new Intent(this, PrincipalActivity.class);
-                    principal.putExtra("usuario", usuario);
+                    principal.putExtra("usuario", user);
 
                     startActivity(principal);
 
