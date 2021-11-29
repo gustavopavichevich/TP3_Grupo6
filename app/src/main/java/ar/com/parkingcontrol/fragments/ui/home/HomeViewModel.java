@@ -1,10 +1,10 @@
-package ar.com.parkingcontrol.ui.home;
+package ar.com.parkingcontrol.fragments.ui.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.databinding.ObservableArrayList;
-import ar.com.parkingcontrol.Entidades.Parqueo;
+import ar.com.parkingcontrol.model.entity.Parqueo;
 
 public class HomeViewModel extends ViewModel {
 

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ParkingControl">
         <activity
-            android:name=".Principal"
+            android:name=".fragments.ui.PrincipalFragment"
             android:exported="true"
             android:label="@string/title_activity_principal"
             android:theme="@style/Theme.ParkingControl.NoActionBar" />
@@ -18,7 +18,7 @@
             android:name=".Registro"
             android:exported="true" />
         <activity
-            android:name=".MainActivity"
+            android:name=".fragments.ui.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

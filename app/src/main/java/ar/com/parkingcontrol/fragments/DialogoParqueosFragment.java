@@ -1,4 +1,4 @@
-package ar.com.parkingcontrol;
+package ar.com.parkingcontrol.fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,15 +15,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-import ar.com.parkingcontrol.Entidades.Parqueo;
+import ar.com.parkingcontrol.R;
+import ar.com.parkingcontrol.model.entity.Parqueo;
+import ar.com.parkingcontrol.model.entity.Usuario;
 
-public class DialogFragment extends AppCompatDialogFragment {
+public class DialogoParqueosFragment extends AppCompatDialogFragment {
     private EditText matricula;
     private EditText tiempo;
+    private Usuario usuario;
     private Parqueo parqueo;
     private TextView tvUsuario;
     private Integer idParqueo;
-    private ParqueoDialogListener listener;
+    private DialogFragmentListener listener;
 
     @NonNull
     @Override
@@ -75,8 +78,8 @@ public class DialogFragment extends AppCompatDialogFragment {
         return d;
     }
 
-    public void setUser(String usuario) {
-        this.parqueo.setUsuario(usuario);
+    public void setUser(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public void setIdParqueo(Integer idParqueo) {
@@ -102,12 +105,12 @@ public class DialogFragment extends AppCompatDialogFragment {
         return true;
     }*/
 
-    public void setListener(ParqueoDialogListener listener) {
+    public void setListener(DialogFragmentListener listener) {
         this.listener = listener;
     }
 
     //Esta interface nos sirve para hacer llegar los datos del parque al Fragment que inicio el dialog
-    public interface ParqueoDialogListener {
+    public interface DialogFragmentListener {
         void salvarParqueo(Parqueo p );
     }
 
@@ -115,14 +118,14 @@ public class DialogFragment extends AppCompatDialogFragment {
 //    private TextView tvUsuario;
 //    private Button btnAceptarParqueo;
 //
-//    public DialogFragment() {
-//        // Empty constructor is required for DialogFragment
+//    public DialogoParqueosFragment() {
+//        // Empty constructor is required for DialogoParqueosFragment
 //        // Make sure not to add arguments to the constructor
 //        // Use `newInstance` instead as shown below
 //    }
 //
-//    public static DialogFragment newInstance(String title) {
-//        DialogFragment frag = new DialogFragment();
+//    public static DialogoParqueosFragment newInstance(String title) {
+//        DialogoParqueosFragment frag = new DialogoParqueosFragment();
 //        Bundle args = new Bundle();
 //        args.putString("title", title);
 //        frag.setArguments(args);

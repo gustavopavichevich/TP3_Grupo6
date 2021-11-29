@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import ar.com.parkingcontrol.model.dataBase.AdminSQLiteOpenHelper;
+
 public class Registro extends AppCompatActivity {
 
     private EditText _nombre, _email, _contrasenia, _recontrasenia;

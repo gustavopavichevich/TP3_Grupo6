@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -15,7 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
-import ar.com.parkingcontrol.Entidades.Parqueo;
+import ar.com.parkingcontrol.model.dataBase.AdminSQLiteOpenHelper;
+import ar.com.parkingcontrol.model.entity.Parqueo;
 
 public class MainActivity extends AppCompatActivity {
     private EditText _usuario, _contrasenia, txtNumeroMatricula, txtTiempo;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
                 //aca abro la pantalla del menu "Mi cuenta" y "Parqueos"
                 //Toast.makeText(this, "Sesion Exitosa", Toast.LENGTH_SHORT).show();
                 BaseDeDatabase.close();
-                Intent principal = new Intent(this, Principal.class);
+                Intent principal = new Intent(this, PrincipalActivity.class);
                 principal.putExtra("usuario", usuario);
 //                TextView tvUsuario = (TextView) .findViewById(R.id.tvUsuario);
 //                TextView tvEmail = (TextView) view.findViewById(R.id.tvUsuario);
@@ -79,33 +79,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void onClickBtnAceptarDialog(View view) {
-
-    }
-
-    public void onClicBtnCancelarDialog(View view) {
-        Intent mainActivity = new Intent(this, MainActivity.class);
-        startActivity(mainActivity);
-    }
-
-    public void recargarParqueos() {
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
-        SQLiteDatabase BaseDeDatabase = admin.getReadableDatabase();
-        Cursor cursor = null;
-        listaParqueos.clear();
-        cursor = BaseDeDatabase.rawQuery("select * from parqueos", null);
-        if (cursor.moveToFirst()) {
-            do {
-                Parqueo parqueo = new Parqueo();
-                parqueo.setUsuario(cursor.getString(0));
-                parqueo.setMatricula(cursor.getString(1));
-                parqueo.setTiempo(cursor.getString(2));
-                listaParqueos.add(parqueo);
-            }
-            while (cursor.moveToNext());
-        }
-        BaseDeDatabase.close();
-        ArrayAdapter<Parqueo> adapter = new ArrayAdapter<Parqueo>(this, android.R.layout.simple_list_item_1, listaParqueos);
-        gvParquos.setAdapter(adapter);
-    }
 }

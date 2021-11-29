@@ -1,4 +1,4 @@
-package ar.com.parkingcontrol;
+package ar.com.parkingcontrol.model.dataBase;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
