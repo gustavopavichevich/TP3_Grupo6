@@ -49,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
 
         String usuario = _usuario.getText().toString();
         String contrasenia = _contrasenia.getText().toString();
-        usuario = "gp@gmail.com";
-        contrasenia = "123";
+        /*usuario = "gp@gmail.com";
+        contrasenia = "123";*/
 
         boolean result = false;
 

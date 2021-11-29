@@ -7,66 +7,72 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import ar.com.parkingcontrol.Entidades.Parqueo;
 import ar.com.parkingcontrol.databinding.ActivityPrincipalBinding;
+import ar.com.parkingcontrol.ui.home.*;
 
-public class Principal extends AppCompatActivity {
 
+public class Principal extends Fragment implements DialogFragment.ParqueoDialogListener {
+
+    private HomeViewModel homeViewModel;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityPrincipalBinding binding;
     private EditText txtNumeroMatricula, txtTiempo;
     private TextView tvUsuario;
+    private MainActivity main;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        main = (MainActivity)getActivity();
+        binding = ActivityPrincipalBinding.inflate(inflater, container, false);
+        View root = binding.getRoot();
+        DialogFragment.ParqueoDialogListener list = this;
+        //Agregamos el listener en el boton de agregar para que abra el
+        //dialogo de agregar parqueo
 
-        binding = ActivityPrincipalBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        FloatingActionButton  floatingactionbutton = container.findViewById(R.id.fabMenuMas);
 
-        setSupportActionBar(binding.appBarPrincipal.toolbar);
-        binding.appBarPrincipal.fabMenuMas.setOnClickListener(new View.OnClickListener() {
+        floatingactionbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Programar Salida", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                showEditDialog();
+                DialogFragment dialog = new DialogFragment();
+                dialog.setListener(list);
+                dialog.setIdParqueo(null);
+                dialog.setUser(tvUsuario.getText().toString());
+                dialog.show(getActivity().getSupportFragmentManager(),null );
             }
         });
-        DrawerLayout drawer = binding.drawerLayout;
-        NavigationView navigationView = binding.navView;
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.parqueosFragment, R.id.miCuentaFragment2)
-                .setOpenableLayout(drawer)
-                .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_principal);
-        NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        cargarMatriculas();
+        return root;
     }
 
-    private void showEditDialog() {
-        FragmentManager fm = getSupportFragmentManager();
-        DialogFragment dialogFragment = DialogFragment.newInstance("Some Title");
-        dialogFragment.show(fm, "dialog_design");
-    }
+//    private void showEditDialog() {
+//        FragmentManager fm = getSupportFragmentManager();
+//        DialogFragment dialogFragment = DialogFragment.newInstance("Some Title");
+//        dialogFragment.show(fm, "dialog_design");
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -81,7 +87,6 @@ public class Principal extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
     public void onClickBtnAceptarDialog(View view) {
 //        txtNumeroMatricula = (EditText) view.findViewById(R.id.txtNumeroMatricula);
 //        String matricula = txtNumeroMatricula.getText().toString();
@@ -120,4 +125,23 @@ public class Principal extends AppCompatActivity {
         return;
     }
 
+    @Override
+    public void salvarParqueo(Parqueo p ) {
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        SQLiteDatabase BaseDeDatos = admin.getWritableDatabase();
+
+        ContentValues registro = new ContentValues();
+
+        registro.put("usuario", p.getUsuario());
+        registro.put("matricula", p.getMatricula());
+        registro.put("tiempo", p.getTiempo());
+
+        BaseDeDatos.insert("parqueos", null, registro);
+
+        BaseDeDatos.close();
+        Toast.makeText(this, "Parqueo grabado exitosamente", Toast.LENGTH_LONG).show();
+        txtNumeroMatricula.setText("Numero de matricula");
+        txtTiempo.setText("Tiempo");
+
+    }
 }
